@@ -20,5 +20,6 @@ deploy:
   on:
     python: 2.7
     tags: true
+    all_branches: true
   password:
     secure: Mo0G62BBV0ufgpcOnBbDWXjnBX8G+gpa0ceBu/zNUF66/PN6qoPt4YnNqUptC1rzB8gbzhGpPrihRu4HsBcnkWjGHrjWRD0BOlj9xN/lvI4hW/IsXAn6r6/EDishBMcXx6sCir41Eq26/96nEJjuRWC+YyRERfAkSBmBpPjOCMY=
