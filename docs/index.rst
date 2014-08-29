@@ -64,4 +64,4 @@ Indices and tables
    :target: https://pypi.python.org/pypi/sprockets.clients.statsd
 
 .. |License| image:: https://pypip.in/license/sprockets.clients.statsd/badge.svg?
-   :target: https://sprockets.clients.statsd.readthedocs.org
+   :target: https://sprocketsclientsstatsd.readthedocs.org

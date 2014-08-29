@@ -24,7 +24,7 @@ and can be installed via ``pip`` or ``easy_install``:
 
 Documentation
 -------------
-https://sprockets.clients.statsd.readthedocs.org
+https://sprocketsclientsstatsd.readthedocs.org
 
 Example
 -------
@@ -44,11 +44,11 @@ incrementing a counter, setting a gauge value, and adding a timing value:
     # Add a timing value
     statsd.add_timing('foo', 'bar', 'baz', value=3.14159)
 
-Documentation is available at https://sprockets.clients.statsd.readthedocs.org
+Documentation is available at https://sprocketsclientsstatsd.readthedocs.org
 
 Version History
 ---------------
-Available at https://sprockets.clients.statsd.readthedocs.org/en/latest/history.html
+Available at https://sprocketsclientsstatsd.readthedocs.org/en/latest/history.html
 
 .. |Version| image:: https://badge.fury.io/py/sprockets.clients.statsd.svg?
    :target: http://badge.fury.io/py/sprockets.clients.statsd
@@ -63,4 +63,4 @@ Available at https://sprockets.clients.statsd.readthedocs.org/en/latest/history.
    :target: https://pypi.python.org/pypi/sprockets.clients.statsd
 
 .. |License| image:: https://pypip.in/license/sprockets.clients.statsd/badge.svg?
-   :target: https://sprockets.clients.statsd.readthedocs.org
+   :target: https://sprocketsclientsstatsd.readthedocs.org
