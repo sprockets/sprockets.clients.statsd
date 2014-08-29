@@ -17,7 +17,7 @@ class SendTests(unittest.TestCase):
     def test_socket_sendto_is_invoked(self):
         with mock.patch('socket.socket.sendto') as sendto:
             statsd._send('foo.bar.baz', 'c', 2)
-            sendto.assert_called_once_with('foo.bar.baz:2|c',
+            sendto.assert_called_once_with(b'foo.bar.baz:2|c',
                                            ('localhost', 8125))
 
     def test_socket_sendto_logs_exception(self):
