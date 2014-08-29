@@ -4,7 +4,7 @@ The ``sprockets.clients.statsd`` package implements a simple statsd client that
 is used by the ``sprockets.mixins.statsd`` package. It can be used in your
 applications for sending metric values to statsd.
 
-The default statsd server that is used is localhost:8125. The ``STATSD_HOST``
+The default statsd server that is used is ``localhost:8125``. The ``STATSD_HOST``
 and ``STATSD_PORT`` environment variables can be used to set the statsd server
 connection parameters. Note that the socket for communicating with statsd is
 created once upon module import and will not change until the application is
