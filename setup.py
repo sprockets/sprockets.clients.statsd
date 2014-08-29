@@ -3,8 +3,6 @@ import sys
 
 import setuptools
 
-from sprockets.clients.statsd import __version__
-
 
 def read_requirements_file(req_name):
     requirements = []
@@ -31,7 +29,7 @@ if sys.version_info < (3, 0):
 
 setuptools.setup(
     name='sprockets.clients.statsd',
-    version=__version__,
+    version='1.0.1',
     description='A minimalistic statsd client used by sprockets.mixins.statsd',
     long_description=open('README.rst').read(),
     url='https://github.com/sprockets/sprockets.clients.statsd.git',
