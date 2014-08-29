@@ -56,7 +56,7 @@ Available at https://sprockets.clients.statsd.readthedocs.org/en/latest/history.
 .. |Status| image:: https://travis-ci.org/sprockets/sprockets.clients.statsd.svg?branch=master
    :target: https://travis-ci.org/sprockets/sprockets.clients.statsd
 
-.. |Coverage| image:: https://coveralls.io/repos/sprockets/sprockets.clients.statsd.svg?
+.. |Coverage| image:: https://img.shields.io/coveralls/sprockets/sprockets.clients.statsd.svg?
    :target: https://coveralls.io/r/sprockets/sprockets.clients.statsd
 
 .. |Downloads| image:: https://pypip.in/d/sprockets.clients.statsd/badge.svg?
