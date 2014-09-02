@@ -57,7 +57,7 @@ setuptools.setup(
     packages=['sprockets',
               'sprockets.clients',
               'sprockets.clients.statsd'],
-    package_data={'': ['LICENSE', 'README.md']},
+    package_data={'': ['LICENSE', 'README.rst']},
     include_package_data=True,
     namespace_packages=['sprockets', 'sprockets.clients'],
     install_requires=install_requires,
