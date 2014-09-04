@@ -16,7 +16,7 @@ class SendTests(unittest.TestCase):
 
     def test_socket_sendto_is_invoked(self):
         with mock.patch('socket.socket.sendto') as sendto:
-            statsd._send('foo.bar.baz', 'c', 2)
+            statsd._send('foo.bar.baz', 2, 'c')
             sendto.assert_called_once_with(b'foo.bar.baz:2|c',
                                            ('localhost', 8125))
 
@@ -25,7 +25,7 @@ class SendTests(unittest.TestCase):
             with mock.patch('sprockets.clients.statsd.LOGGER') as LOGGER:
                 sendto.side_effect = socket.error
                 LOGGER.exception = mock.Mock()
-                statsd._send('foo.bar.baz', 'c', 2)
+                statsd._send('foo.bar.baz', 2, 'c')
                 LOGGER.exception.assert_called_once_with(statsd.SOCKET_ERROR)
 
 
