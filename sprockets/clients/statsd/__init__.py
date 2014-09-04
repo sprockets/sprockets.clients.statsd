@@ -76,7 +76,7 @@ def set_gauge(*args, **kwargs):
     _send('.'.join(args), kwargs.get('value', 0), 'g')
 
 
-def _send(key, metric_type, value):
+def _send(key, value, metric_type):
     """Send the specified value to the statsd daemon via UDP without a
     direct socket connection.
 
