@@ -1,9 +1,9 @@
 """
 StatsD API
 ==========
-The default statsd server that is used is localhost:8125. The ``STATSD_HOST``
-and ``STATSD_PORT`` environment variables can be used to set the statsd server
-connection parameters. Note that the socket for communicating with statsd is
+The default statsd server that is used is localhost:8125. The ``STATSD``
+environment variable can be used to set the statsd server connection
+parameters. Note that the socket for communicating with statsd is
 created once upon module import and will not change until the application is
 restarted or the module is reloaded.
 
@@ -11,18 +11,45 @@ restarted or the module is reloaded.
 import logging
 import os
 import socket
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
-version_info = (1, 0, 2)
+version_info = (1, 1, 0)
 __version__ = '.'.join(str(v) for v in version_info)
 
 LOGGER = logging.getLogger(__name__)
 
-STATSD_ADDR = (os.getenv('STATSD_HOST', 'localhost'),
-               int(os.getenv('STATSD_PORT', 8125)))
+STATSD_ADDR = None
 SOCKET_ERROR = 'Error sending statsd metric'
 STATSD_SOCKET = socket.socket(socket.AF_INET,
                               socket.SOCK_DGRAM,
                               socket.IPPROTO_UDP)
+
+
+def set_address():
+    """Set the (host, port) to connect to from the environment.
+
+    If the environment is updated, a call to this function will update the
+    address this client connects to.
+
+    This function will prefer to use the ``STATSD`` connection string
+    environment variable, but will fall back to using the ``STATSD_HOST``
+    and ``STATSD_PORT``.
+
+    """
+    global STATSD_ADDR
+    connection_string = os.getenv('STATSD')
+    if connection_string:
+        url = urlparse.urlparse(connection_string)
+        STATSD_ADDR = (url.hostname, url.port)
+    else:
+        STATSD_ADDR = (os.getenv('STATSD_HOST', 'localhost'),
+                       int(os.getenv('STATSD_PORT', 8125)))
+
+
+set_address()
 
 
 def add_timing(*args, **kwargs):
