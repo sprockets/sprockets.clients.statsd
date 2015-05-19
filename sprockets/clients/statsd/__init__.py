@@ -11,13 +11,14 @@ restarted or the module is reloaded.
 import logging
 import os
 import socket
+import time
+import types
 try:
     import urllib.parse as urlparse
 except ImportError:
     import urlparse
 
-version_info = (1, 1, 0)
-__version__ = '.'.join(str(v) for v in version_info)
+__version__ = '1.2.0'
 
 LOGGER = logging.getLogger(__name__)
 
@@ -26,6 +27,7 @@ SOCKET_ERROR = 'Error sending statsd metric'
 STATSD_SOCKET = socket.socket(socket.AF_INET,
                               socket.SOCK_DGRAM,
                               socket.IPPROTO_UDP)
+STATSD_PREFIX = os.getenv('STATSD_PREFIX', 'sprockets')
 
 
 def set_address():
@@ -49,7 +51,65 @@ def set_address():
                        int(os.getenv('STATSD_PORT', 8125)))
 
 
+def set_prefix(prefix_value):
+    """Set a statsd prefix that is included when using the statsd functions
+
+    :param str prefix_value: prefix value
+
+    """
+    global STATSD_PREFIX
+    STATSD_PREFIX = prefix_value
+
+
 set_address()
+
+
+def execution_timer(value):
+    """The ``measure_duration`` decorator allows for easy instrumentation of
+    the duration of function calls, using the method name in the key.
+
+    The following example would add duration timing with the key ``my_function``
+
+    .. code: python
+
+        @statsd.measure_duration
+        def my_function(foo):
+            pass
+
+
+    You can also have include a string argument value passed to your method as
+    part of the key. Pass the index offset of the arguments to specify the
+    argument number to use. In the following example, the key would be
+    ``my_function.baz``:
+
+    .. code:python
+
+        @statsd.measure_duration(2)
+        def my_function(foo, bar, 'baz'):
+            pass
+
+    """
+    def _invoke(method, key_arg_position, *args, **kwargs):
+        start_time = time.time()
+        result = method(*args, **kwargs)
+        duration = time.time() - start_time
+
+        key = [method.func_name]
+        if key_arg_position is not None:
+            key.append(args[key_arg_position])
+        add_timing('.'.join(key), value=duration)
+        return result
+
+    if type(value) is types.FunctionType:
+        def wrapper(*args, **kwargs):
+            return _invoke(value, None, *args, **kwargs)
+        return wrapper
+    else:
+        def duration_decorator(func):
+            def wrapper(*args, **kwargs):
+                return _invoke(func, value, *args, **kwargs)
+            return wrapper
+        return duration_decorator
 
 
 def add_timing(*args, **kwargs):
@@ -110,6 +170,8 @@ def _send(key, value, metric_type):
     :param str value: The properly formatted statsd counter value
 
     """
+    if STATSD_PREFIX:
+        key = '.'.join([STATSD_PREFIX, key])
     try:
         STATSD_SOCKET.sendto('{0}:{1}|{2}'.format(key,
                                                   value,
