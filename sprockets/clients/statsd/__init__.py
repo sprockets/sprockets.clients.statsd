@@ -27,7 +27,7 @@ SOCKET_ERROR = 'Error sending statsd metric'
 STATSD_SOCKET = socket.socket(socket.AF_INET,
                               socket.SOCK_DGRAM,
                               socket.IPPROTO_UDP)
-STATSD_PREFIX = None
+STATSD_PREFIX = os.getenv('STATSD_PREFIX', 'sprockets')
 
 
 def set_address():
@@ -98,7 +98,6 @@ def execution_timer(value):
         if key_arg_position is not None:
             key.append(args[key_arg_position])
         add_timing('.'.join(key), value=duration)
-        print('.'.join(key), duration)
         return result
 
     if type(value) is types.FunctionType:
