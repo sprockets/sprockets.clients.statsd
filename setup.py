@@ -29,7 +29,7 @@ if sys.version_info < (3, 0):
 
 setuptools.setup(
     name='sprockets.clients.statsd',
-    version='1.1.0',
+    version='1.2.0',
     description='A minimalistic statsd client used by sprockets.mixins.statsd',
     long_description=open('README.rst').read(),
     url='https://github.com/sprockets/sprockets.clients.statsd.git',
