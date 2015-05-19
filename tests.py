@@ -18,7 +18,7 @@ class SendTests(unittest.TestCase):
     def test_socket_sendto_is_invoked(self):
         with mock.patch('socket.socket.sendto') as sendto:
             statsd._send('foo.bar.baz', 2, 'c')
-            sendto.assert_called_once_with(b'foo.bar.baz:2|c',
+            sendto.assert_called_once_with(b'sprockets.foo.bar.baz:2|c',
                                            ('localhost', 8125))
 
     def test_statsd_url_format(self):
@@ -27,7 +27,7 @@ class SendTests(unittest.TestCase):
 
         with mock.patch('socket.socket.sendto') as sendto:
             statsd._send('foo.bar.baz', 2, 'c')
-            sendto.assert_called_once_with(b'foo.bar.baz:2|c',
+            sendto.assert_called_once_with(b'sprockets.foo.bar.baz:2|c',
                                            ('statsd.service', 8675))
 
         del os.environ['STATSD']

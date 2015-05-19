@@ -18,7 +18,7 @@ try:
 except ImportError:
     import urlparse
 
-__version__ = '1.2.0'
+__version__ = '1.2.1'
 
 LOGGER = logging.getLogger(__name__)
 
@@ -65,14 +65,14 @@ set_address()
 
 
 def execution_timer(value):
-    """The ``measure_duration`` decorator allows for easy instrumentation of
+    """The ``execution_timer`` decorator allows for easy instrumentation of
     the duration of function calls, using the method name in the key.
 
     The following example would add duration timing with the key ``my_function``
 
     .. code: python
 
-        @statsd.measure_duration
+        @statsd.execution_timer
         def my_function(foo):
             pass
 
@@ -84,7 +84,7 @@ def execution_timer(value):
 
     .. code:python
 
-        @statsd.measure_duration(2)
+        @statsd.execution_timer(2)
         def my_function(foo, bar, 'baz'):
             pass
 
